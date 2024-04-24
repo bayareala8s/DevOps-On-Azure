@@ -161,3 +161,54 @@ resource "azuredevops_release_definition" "release" {
 This script assumes that you have the necessary permissions to create these resources in your Azure DevOps account. Also, it's a good practice to specify the provider version and use a backend for storing the state file in a shared and secure location.
 
 Please replace the placeholders with your actual details before running the script. Also, you need to create the `azure-pipelines.yml` file in your repository which defines the build and test steps for your Databricks notebooks or jobs.
+
+
+### azure-pipelines.yml to deploy python notebooks to databricks cluster
+
+To deploy Python notebooks to a Databricks cluster using an azure-pipelines.yml file, you can use the Databricks CLI or REST API. Here's a basic example of how you might set up your pipeline:
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
+
+- script: |
+    python -m pip install --upgrade pip
+    pip install databricks-cli
+  displayName: 'Install Databricks CLI'
+
+- script: |
+    echo 'Deploying notebooks...'
+    databricks workspace import_dir ./notebooks /Users/$(databricks.user)/notebooks --overwrite
+  env:
+    DATABRICKS_HOST: $(databricks.host)
+    DATABRICKS_TOKEN: $(databricks.token)
+  displayName: 'Deploy notebooks'
+
+- script: |
+    echo 'Starting cluster...'
+    databricks clusters start --cluster-id $(databricks.cluster_id)
+  env:
+    DATABRICKS_HOST: $(databricks.host)
+    DATABRICKS_TOKEN: $(databricks.token)
+  displayName: 'Start cluster'
+
+
+In this example, the pipeline is triggered whenever there are changes to the master branch. It runs on an Ubuntu VM and has several steps:
+
+It sets up Python 3.x.
+It installs the Databricks CLI.
+It deploys your notebooks to Databricks. The import_dir command is used to upload a directory of notebooks to Databricks. The --overwrite flag is used to overwrite any existing notebooks with the same names.
+It starts a Databricks cluster. The start command is used to start a cluster.
+Please note that you'll need to replace ./notebooks with the path to your notebooks, and /Users/$(databricks.user)/notebooks with the path where you want to upload your notebooks in Databricks. You'll also need to set up the databricks.host, databricks.token, databricks.user, and databricks.cluster_id variables in your pipeline.
+
+This is a basic example and you might need to adjust it according to your specific requirements. For example, you might want to add steps to test your notebooks or to configure your Databricks workspace.
+
+
