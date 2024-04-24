@@ -167,6 +167,7 @@ Please replace the placeholders with your actual details before running the scri
 
 To deploy Python notebooks to a Databricks cluster using an azure-pipelines.yml file, you can use the Databricks CLI or REST API. Here's a basic example of how you might set up your pipeline:
 
+```
 trigger:
 - master
 
@@ -199,7 +200,7 @@ steps:
     DATABRICKS_HOST: $(databricks.host)
     DATABRICKS_TOKEN: $(databricks.token)
   displayName: 'Start cluster'
-
+```
 
 In this example, the pipeline is triggered whenever there are changes to the master branch. It runs on an Ubuntu VM and has several steps:
 
