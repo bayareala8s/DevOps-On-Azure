@@ -94,3 +94,70 @@ Here's an example of how you might organize your Terraform scripts:
 ```
 
 Remember, these are just guidelines and the actual organization of your Terraform scripts can vary based on your project's needs.
+
+
+### Terraform Script to Creata a CI/CD pipeline for Azure DataBricks
+
+Creating a CI/CD pipeline for Azure Databricks using Terraform involves several steps. Here's a basic example of how you might do this:
+
+1. Define a Azure DevOps project.
+2. Define a Azure DevOps Git repository to store your Databricks notebooks or jobs.
+3. Define a Azure DevOps build pipeline to test your notebooks or jobs.
+4. Define a Azure DevOps release pipeline to automate the deployment of your notebooks or jobs.
+
+Here's a Terraform script that sets up these resources:
+
+```hcl
+provider "azuredevops" {
+  org_service_url = "https://dev.azure.com/your_organization"
+  personal_access_token = "your_personal_access_token"
+}
+
+resource "azuredevops_project" "project" {
+  name               = "Databricks Project"
+  description        = "Project to manage Databricks CI/CD"
+  visibility         = "private"
+  version_control    = "Git"
+  work_item_template = "Agile"
+}
+
+resource "azuredevops_git_repository" "repo" {
+  project_id = azuredevops_project.project.id
+  name       = "Databricks Repo"
+  initialization {
+    init_type = "Clean"
+  }
+}
+
+resource "azuredevops_build_definition" "build" {
+  project_id = azuredevops_project.project.id
+  name       = "Databricks Build"
+
+  ci_trigger {
+    use_yaml = true
+  }
+
+  repository {
+    repo_type   = "TfsGit"
+    repo_id     = azuredevops_git_repository.repo.id
+    branch_name = azuredevops_git_repository.repo.default_branch
+    yml_path    = "azure-pipelines.yml"
+  }
+}
+
+resource "azuredevops_release_definition" "release" {
+  project_id = azuredevops_project.project.id
+  name       = "Databricks Release"
+
+  artifact {
+    alias = "Databricks"
+    type  = "Build"
+    definition_id = azuredevops_build_definition.build.id
+    default_version_branch = azuredevops_git_repository.repo.default_branch
+  }
+}
+```
+
+This script assumes that you have the necessary permissions to create these resources in your Azure DevOps account. Also, it's a good practice to specify the provider version and use a backend for storing the state file in a shared and secure location.
+
+Please replace the placeholders with your actual details before running the script. Also, you need to create the `azure-pipelines.yml` file in your repository which defines the build and test steps for your Databricks notebooks or jobs.
