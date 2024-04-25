@@ -125,3 +125,16 @@ databricks libraries uninstall --cluster-id CLUSTER_ID --maven-coordinates GROUP
 databricks libraries list --cluster-id CLUSTER_ID: Lists all libraries installed on a cluster.
 
 For more details on how to use these commands, you can use the --help option with any command, like databricks workspace ls --help.
+
+
+The databricks configure [--token] command is used to set up authentication for the Databricks CLI.
+
+When you run databricks configure, it will prompt you for a Databricks host and a username and password. The host is the URL of your Databricks workspace. The username and password are your Databricks login credentials.
+
+If you add the --token option, like databricks configure --token, it will prompt you for a Databricks host and a token instead. The token is a personal access token that you can generate in your Databricks workspace.
+
+Here's an example of how you can use this command:
+
+Replace <databricks-instance> with the URL of your Databricks workspace and <your-token> with your personal access token.
+
+The Databricks CLI stores the host and token in a configuration file in your home directory. After you have run databricks configure --token, you can use the Databricks CLI to interact with your Databricks workspace without having to enter your host and token each time.
