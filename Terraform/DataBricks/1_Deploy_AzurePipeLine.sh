@@ -21,10 +21,10 @@ brew install databricks
 #databricks configure --token
 
 # Copy your PySpark script to DBFS
-#databricks fs cp --overwrite /Users/hbhadra/PycharmProjects/cardiovascular_disease_prediction/src/Test_PYSPARK.py dbfs:/cdp/src/dbfs/app.py
+databricks fs cp --overwrite Test_PySpark.py dbfs:/Test_PySpark.py
 
 # Create the job and get the job ID
-JOB_ID=$(databricks jobs create --json cdp-app-create-job.json | jq -r '.job_id') 
+JOB_ID=$(databricks jobs create --json @cdp-app-create-job.json | jq -r '.job_id') 
 
 echo $JOB_ID
 
@@ -48,9 +48,9 @@ cat <<EOF > cdp-app-run-job.json
           "task_key": "CDP-TASK",
           "run_if": "ALL_SUCCESS",
           "spark_python_task": {
-            "python_file": "dbfs:/cdp/src/dbfs/app.py"
+            "python_file": "dbfs:/Test_PySpark.py"
           },
-          "existing_cluster_id": "0425-120439-eric4jrf",
+          "existing_cluster_id": "0425-223144-hs79nobo",
           "timeout_seconds": 0,
           "email_notifications": {}
         }
@@ -62,4 +62,4 @@ cat <<EOF > cdp-app-run-job.json
 EOF
 
 # Run the job immediately
-databricks jobs run-now --json cdp-app-run-job.json
+databricks jobs run-now --json @cdp-app-run-job.json
