@@ -1,2 +1,2 @@
-personal_access_token = "b5hu6radway3cst36kkezawuhigfcupxbwo3edciilhvf62ricoq"
-databricks_token = "dapi4e3d5b99b3fa95a2b22f2ed4b5f87ff2"
+personal_access_token = "***********"
+databricks_token = "**********"
