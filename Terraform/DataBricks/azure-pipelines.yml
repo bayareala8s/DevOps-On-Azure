@@ -1,8 +1,8 @@
 steps:
 - script: |
-    chmod +x ./1_Deploy.sh
-    ./1_Deploy.sh
+    chmod +x ./1_Deploy_AzurePipeLine.sh
+    ./1_Deploy_AzurePipeLine.sh
   displayName: 'Run Bash Script'
   env:
-    DATABRICKS_HOST: https://adb-2936085998459679.19.azuredatabricks.net/
-    DATABRICKS_TOKEN: *****************
+    DATABRICKS_HOST: https://adb-2765225598220446.6.azuredatabricks.net/
+    DATABRICKS_TOKEN: dapi4e3d5b99b3fa95a2b22f2ed4b5f87ff2
