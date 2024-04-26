@@ -1,0 +1,23 @@
+{
+    "name": "CDP Job",
+    "existing_cluster_id": "0425-120439-eric4jrf",
+    "libraries": [{"pypi": {"package": "pyspark"}}],
+    "email_notifications": {},
+    "timeout_seconds": 0,
+    "max_retries": 1,
+    "min_retry_interval_millis": 5000,
+    "retry_on_timeout": false,
+    "tasks": [
+        {
+          "task_key": "CDP-TASK",
+          "run_if": "ALL_SUCCESS",
+          "spark_python_task": {
+            "python_file": "dbfs:/cdp/src/dbfs/app.py"
+          },
+          "existing_cluster_id": "0425-120439-eric4jrf",
+          "timeout_seconds": 0,
+          "email_notifications": {}
+        }
+      ]
+  }
+      

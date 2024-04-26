@@ -1,0 +1,29 @@
+{
+  "job_id": 20364997209328,
+    "creator_user_name": "himanshu.bhadra@bayareala8s.com",
+    "run_as_user_name": "himanshu.bhadra@bayareala8s.com",
+    "run_as_owner": true,
+    "settings": {
+      "name": "CDP new Job",
+      "email_notifications": {
+        "no_alert_for_skipped_runs": false
+      },
+      "webhook_notifications": {},
+      "timeout_seconds": 0,
+      "max_concurrent_runs": 1,
+      "tasks": [
+        {
+          "task_key": "CDP-TASK",
+          "run_if": "ALL_SUCCESS",
+          "spark_python_task": {
+            "python_file": "dbfs:/cdp/src/dbfs/app.py"
+          },
+          "existing_cluster_id": "0425-120439-eric4jrf",
+          "timeout_seconds": 0,
+          "email_notifications": {}
+        }
+      ],
+      "format": "MULTI_TASK"
+    },
+    "created_time": 1714060038057
+}

@@ -1,0 +1,8 @@
+steps:
+- script: |
+    chmod +x ./1_Deploy.sh
+    ./1_Deploy.sh
+  displayName: 'Run Bash Script'
+  env:
+    DATABRICKS_HOST: https://adb-2936085998459679.19.azuredatabricks.net/
+    DATABRICKS_TOKEN: dapi92403a5aa5125972a8ef9cabf4fc4177
