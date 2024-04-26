@@ -5,4 +5,4 @@ steps:
   displayName: 'Run Bash Script'
   env:
     DATABRICKS_HOST: https://adb-2765225598220446.6.azuredatabricks.net/
-    DATABRICKS_TOKEN: dapi4e3d5b99b3fa95a2b22f2ed4b5f87ff2
+    DATABRICKS_TOKEN: ****************
