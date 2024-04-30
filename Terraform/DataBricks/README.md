@@ -1,3 +1,40 @@
+### High-Level Architecture Diagram for CI/CD for Azure DataBricks
+
+Here's a high-level architecture diagram for a CI/CD pipeline for Azure Databricks applications using Azure DevOps:
+
+```
++----------------+     +----------------+     +----------------+     +----------------+
+|                |     |                |     |                |     |                |
+|  Developer's   |     |   Azure Repo   |     | Azure Pipelines|     | Azure Databricks|
+|  Local System  | --> | (Source Code)  | --> |  (CI/CD Tool)  | --> | (Deployed App) |
+|                |     |                |     |                |     |                |
++----------------+     +----------------+     +----------------+     +----------------+
+       |                      |                      |                      |
+       |                      |                      |                      |
+       v                      v                      v                      v
++----------------+     +----------------+     +----------------+     +----------------+
+|                |     |                |     |                |     |                |
+|   Git (VCS)    |     |   Build & Test |     |   Databricks   |     |   Databricks   |
+|                |     |                |     |   Workspace    |     |   Jobs/Notebooks|
++----------------+     +----------------+     +----------------+     +----------------+
+```
+
+1. **Developer's Local System**: Developers write code on their local systems. They use Git for version control.
+
+2. **Azure Repo (Source Code)**: The code is pushed to a repository in Azure Repo. This triggers the CI/CD pipeline in Azure Pipelines.
+
+3. **Azure Pipelines (CI/CD Tool)**: Azure Pipelines pulls the latest code from Azure Repo. It then builds the Databricks workspace, runs tests, and deploys the workspace to Azure Databricks.
+
+4. **Azure Databricks (Deployed App)**: The application is now running in a Databricks job or notebook in Azure Databricks.
+
+The arrows represent the flow of code and artifacts through the pipeline:
+
+- Code flows from the developer's local system to Azure Repo.
+- Azure Pipelines pulls the code from Azure Repo, builds and tests the Databricks workspace, and deploys the workspace to Azure Databricks.
+
+This is a high-level overview and the actual implementation may vary based on specific requirements.
+
+
 ### Steps to create Azure DataBricks Workspace & Cluster with Terraform
 
 To create an Azure Databricks Workspace and Cluster with Terraform, you can follow these steps:
