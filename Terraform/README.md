@@ -212,4 +212,73 @@ Please note that you'll need to replace ./notebooks with the path to your notebo
 
 This is a basic example and you might need to adjust it according to your specific requirements. For example, you might want to add steps to test your notebooks or to configure your Databricks workspace.
 
+### Terraform script to create Azure PostgreSQL database
+
+Here's a Terraform script that creates a PostgreSQL server and a database in Azure. This script uses the Azure Provider for Terraform.
+
+```hcl
+provider "azurerm" {
+  features {}
+}
+
+variable "resource_group_name" {}
+variable "location" {}
+variable "server_name" {}
+variable "admin_login" {}
+variable "admin_password" {}
+variable "database_name" {}
+
+resource "azurerm_resource_group" "rg" {
+  name     = var.resource_group_name
+  location = var.location
+}
+
+resource "azurerm_postgresql_server" "postgres" {
+  name                = var.server_name
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  sku_name = "B_Gen5_1"
+
+  storage_mb = 5120
+  backup_retention_days = 7
+
+  administrator_login          = var.admin_login
+  administrator_login_password = var.admin_password
+  version                      = "9.6"
+  ssl_enforcement_enabled      = true
+}
+
+resource "azurerm_postgresql_database" "db" {
+  name                = var.database_name
+  resource_group_name = azurerm_resource_group.rg.name
+  server_name         = azurerm_postgresql_server.postgres.name
+  charset             = "UTF8"
+  collation           = "English_United States.1252"
+}
+```
+
+You can use this script by creating a `terraform.tfvars` file with the following content:
+
+```hcl
+resource_group_name = "your-resource-group-name"
+location            = "your-location"
+server_name         = "your-server-name"
+admin_login         = "your-admin-login"
+admin_password      = "your-admin-password"
+database_name       = "your-database-name"
+```
+
+Replace `"your-resource-group-name"`, `"your-location"`, `"your-server-name"`, `"your-admin-login"`, `"your-admin-password"`, and `"your-database-name"` with your actual values.
+
+Then, initialize Terraform with `terraform init`, plan the deployment with `terraform plan`, and apply the changes with `terraform apply`.
+
+This script does the following:
+
+1. Creates a resource group.
+2. Creates a PostgreSQL server in the resource group.
+3. Creates a database in the PostgreSQL server.
+
+Please note that you need to replace the placeholders with your actual values. Also, ensure that you have the necessary permissions to create resources in Azure.
+
 
