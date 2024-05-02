@@ -1,6 +1,6 @@
 ## Azure Kubernetes Service (AKS)
 
-Below is a comprehensive text-based architecture diagram for Azure Kubernetes, including detailed explanations of each component and its role within the architecture, as well as an overview of the network topology:
+Text-based architecture diagram for Azure Kubernetes, including detailed explanations of each component and its role within the architecture, as well as an overview of the network topology:
 
 ```
 Azure Kubernetes Service (AKS)
