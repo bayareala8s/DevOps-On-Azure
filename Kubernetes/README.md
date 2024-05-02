@@ -1,5 +1,8 @@
 ## Azure Kubernetes Service (AKS)
 
+Below is a comprehensive text-based architecture diagram for Azure Kubernetes, including detailed explanations of each component and its role within the architecture, as well as an overview of the network topology:
+
+```
 Azure Kubernetes Service (AKS)
 │
 ├── Control Plane (Master Node)
@@ -79,6 +82,16 @@ Azure Kubernetes Service (AKS)
         ├── IP Address Management: Assigns IP addresses to pods.
         ├── Network Policy Enforcement: Defines network policies for traffic control.
         └── Integration with Azure Virtual Network: Enables secure and efficient communication between pods and other Azure services.
+```
+
+**Network Topology Overview:**
+- The architecture operates within an Azure Virtual Network (VNet), providing isolated networking for AKS resources.
+- Subnet configuration allows grouping of resources within VNets, facilitating network segmentation.
+- Network Security Groups (NSGs) filter traffic to and from AKS resources, enforcing security policies.
+- The Azure Container Networking Interface (CNI) integrates Kubernetes pods with Azure networking, ensuring secure and efficient communication.
+- Load balancers (e.g., Azure Standard Load Balancer, Azure Application Gateway) distribute incoming traffic among pods for high availability and scalability.
+- Storage options (Azure Disk, Azure Files, Azure NetApp Files) provide persistent storage for applications running in the AKS cluster.
+- Worker nodes execute workloads in containers managed by container runtimes (e.g., Docker, containerd, CRI-O) and are orchestrated by the control plane components (etcd, API Server, Scheduler, Controller Manager) running on the master node.
 
 
 ### High-Level Architecture Diagram for CI/CD for AKS apps with Azure Pipelines
