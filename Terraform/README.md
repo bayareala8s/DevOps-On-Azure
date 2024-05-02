@@ -282,3 +282,26 @@ This script does the following:
 Please note that you need to replace the placeholders with your actual values. Also, ensure that you have the necessary permissions to create resources in Azure.
 
 
+### Bash script vs Terraform script to create Azure Services
+
+Both Bash scripts (using Azure CLI) and Terraform scripts can be used to create and manage Azure services. The choice between the two often depends on your specific use case, team skills, and the complexity of your infrastructure. Here are some points to consider:
+
+**Bash Scripts (Azure CLI):**
+
+- **Procedural Style**: Bash scripts are written in a procedural style, where you define step-by-step commands to achieve the desired state.
+- **Scripting Flexibility**: Bash scripts can include complex logic, loops, conditionals, and error handling.
+- **Learning Curve**: If your team is already familiar with Bash scripting, it can be quicker to get started with Azure CLI.
+- **Idempotency**: Azure CLI scripts are not idempotent by default. You need to handle the idempotency (the property of certain operations in mathematics and computer science whereby they can be applied multiple times without changing the result beyond the initial application) in your scripts.
+
+**Terraform Scripts:**
+
+- **Declarative Style**: Terraform scripts are written in a declarative style, where you define the desired state, and Terraform figures out how to achieve it.
+- **Provider Agnostic**: Terraform can manage a wide variety of service providers in addition to Azure, which can be beneficial if you're working in a multi-cloud environment.
+- **State Management**: Terraform maintains a state file to keep track of resources, which can be beneficial for complex infrastructures.
+- **Idempotency**: Terraform scripts are idempotent. Running the same script multiple times will result in the same state.
+- **Learning Curve**: Terraform has its own language (HCL), which requires learning.
+
+In summary, for simple tasks or quick prototyping, a Bash script using Azure CLI might be sufficient. However, for managing complex infrastructures, especially in a multi-cloud environment, Terraform would be a better choice due to its features like state management, idempotency, and provider agnostic capabilities.
+
+
+
